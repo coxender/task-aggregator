@@ -1,9 +1,7 @@
-type Tag = string;
+export type Tag = string;
 
-type Tags = string[];
-
-type Task = {
+export type Task = {
   date: string;
   tags: Tag[];
-  desciption: string;
+  description: string;
 };

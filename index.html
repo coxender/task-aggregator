@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="src/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Aggregator</title>
+  </head>
+  <body>
+    <h1>Task Aggregator</h1>
+    <h2>Add Tasks</h2>
+    <form>
+      <label>Date: <input type="date"></label>
+      <label>Tags: <select id="" size="5" multiple>
+        <option>add a tag</option>
+        <option>add a tag</option>
+        <option>add a tag</option>
+      </select></label>
+      <label>Description: <textarea placeholder="Describe the task..."></textarea></label>
+      <button type="submit">Add task</button>
+    </form>
+    <h2>Created Tags</h2>
+    <div id="tag-list">
+      <div>
+        <span>Tag1</span><button>X</button>
+      </div>
+      <div>
+        <span>Tag1</span><button>X</button>
+      </div>
+      <div>
+        <span>Tag1</span><button>X</button>
+      </div>
+    </div>
+    <input placeholder="new tag"><button>Add Tag</button>
+    <h2>Past Tasks</h2>
+    <div id="tasks-list">
+      <div><span>1/2/01</span><span class="tag">tag1</span><span class="tag">tag2</span><span>This is a description ahhhhhhhhhhhhhh python</span></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

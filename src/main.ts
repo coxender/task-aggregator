@@ -1,11 +1,13 @@
 import { Tag, Task } from "./types";
 import { html, render } from "lit";
+import { loadTasks, saveTasks } from "./file";
 
 // prevent default submit
-// add listeners
+// add new tags
+// delet tags
 // file to and file from functions
 
-const tasks: Task[] = [];
+const tasks: Task[] = loadTasks();
 const taskForm = document.querySelector("#task-form") as HTMLFormElement;
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();

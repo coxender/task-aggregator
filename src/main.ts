@@ -40,7 +40,9 @@ function update() {
   render(templates, tasksListElement);
 }
 
-const dateInput = document.querySelector('#task-form [name="date"]') as HTMLInputElement;
+const dateInput = document.querySelector(
+  '#task-form [name="date"]'
+) as HTMLInputElement;
 function resetTaskForm() {
   taskForm.reset();
   dateInput.valueAsDate = new Date();

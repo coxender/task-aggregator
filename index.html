@@ -23,12 +23,14 @@
       <button type="submit">Add task</button>
     </form>
     <h2>Created Tags</h2>
-    <div id="tag-list">
-      <div><span>Tag1</span><button>X</button></div>
-      <div><span>Tag1</span><button>X</button></div>
-      <div><span>Tag1</span><button>X</button></div>
-    </div>
-    <input placeholder="new tag" /><button>Add Tag</button>
+    <form id="tag-form">
+      <div id="tags-list" class="list">
+        <div><span>Tag1</span><button>X</button></div>
+        <div><span>Tag1</span><button>X</button></div>
+        <div><span>Tag1</span><button>X</button></div>
+      </div>
+      <input placeholder="New tag" name="tag" required/><button type="submit">Add Tag</button>
+    </form>
     <h2>Past Tasks</h2>
     <div id="tasks-list">
       <div>

@@ -1,0 +1,15 @@
+{
+  "name": "Task Aggregator",
+  "id": "task-aggregator",
+  "display": "standalone",
+  "theme_color": "#160736",
+  "background_color": "#160736",
+  "icons": [
+    {
+      "src": "any.png",
+      "sizes": "160x160",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

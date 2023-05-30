@@ -1,6 +1,5 @@
 import { Tag, Task } from "./types";
 import { html, render } from "lit";
-import { loadTasks, saveTasks } from "./file";
 
 // prevent default submit
 // add new tags

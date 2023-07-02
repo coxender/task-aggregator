@@ -14,7 +14,7 @@ let tasks: Task[] = [
     description: "This is a Task ",
   },
 ];
-const tags: Tag[] = ["work", "play", "other"];
+let tags: Tag[] = ["work", "play", "other"];
 const taskForm = document.querySelector("#task-form") as HTMLFormElement;
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -36,9 +36,19 @@ const tagForm = document.querySelector("#tag-form") as HTMLFormElement;
 tagForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = new FormData(tagForm);
-  tags.push(data.get("tag") as Tag);
+  const tag = data.get("tag") as Tag;
 
-  updateTags();
+  let errorText = document.querySelector(
+    "#tag-submission-error-text"
+  ) as HTMLElement;
+  if (tags.includes(tag)) {
+    errorText.innerHTML = "Cannot have duplicate tags!!";
+  } else {
+    errorText.innerHTML = "";
+    tagForm.reset();
+    tags.push(tag);
+    updateTags();
+  }
 });
 
 const tasksListElement = document.querySelector("#tasks-list") as HTMLElement;
@@ -68,7 +78,11 @@ const tagsListElement = document.querySelector("#tags-list") as HTMLElement;
 const tagsDropdown = document.querySelector("#tag-dropdown") as HTMLElement;
 function updateTags() {
   const tagTemplate = tags.map(
-    (tag) => html`<div><span>${tag}</span><button>X</button></div> `
+    (tag) =>
+      html`<div>
+        <span>${tag}</span>
+        <button type="button" @click="${() => deleteTag(tag)}">X</button>
+      </div> `
   );
   const optionsTemplate = tags.map((tag) => html`<option>${tag}</option>`);
   render(tagTemplate, tagsListElement);
@@ -88,6 +102,12 @@ function deleteTask(id: number) {
   tasks = tasks.filter((item) => item.id != id);
   updateTasks();
 }
+
+function deleteTag(tag: string) {
+  tags = tags.filter((item) => item != tag);
+  updateTags();
+}
+
 resetTaskForm();
 updateTasks();
 updateTags();

@@ -1,5 +1,6 @@
 import { Tag, Task } from "./types";
 import { html, render } from "lit";
+import { mdiPencil } from "@mdi/js";
 
 // prevent default submit
 // add new tags
@@ -35,6 +36,7 @@ taskForm.addEventListener("submit", (event) => {
 const tagForm = document.querySelector("#tag-form") as HTMLFormElement;
 tagForm.addEventListener("submit", (event) => {
   event.preventDefault();
+
   const data = new FormData(tagForm);
   const tag = data.get("tag") as Tag;
 
@@ -56,7 +58,12 @@ const tasksListElement = document.querySelector("#tasks-list") as HTMLElement;
 function updateTasks() {
   const templates = tasks.map(
     (task) => html`
-      <div>
+      <div class="task">
+        <button class="task-edit" @click="${(event: Event) => editTask(event)}">
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="currentColor" d="${mdiPencil}" />
+          </svg>
+        </button>
         <button
           id="task-edit-${task.id}"
           @click="${() => deleteTask(task.id)}"
@@ -64,10 +71,10 @@ function updateTasks() {
         >
           X
         </button>
-        <span hidden>${task.id}</span>
+        <span class="task-id" hidden>${task.id}</span>
         <span>${task.date}</span>
         ${task.tags.map((tag) => html`<span class="tag">${tag}</span>`)}
-        <span>${task.description}</span>
+        <p class="task-description">${task.description}</p>
       </div>
     `
   );
@@ -106,6 +113,28 @@ function deleteTask(id: number) {
 function deleteTag(tag: string) {
   tags = tags.filter((item) => item != tag);
   updateTags();
+}
+
+function editTask(event: Event) {
+  const parent = (event.target as HTMLElement).closest(".task") as HTMLElement;
+  let id = Number(
+    (parent.querySelector(".task-id") as HTMLElement).textContent
+  );
+  let element = parent.querySelector(".task-description") as HTMLElement;
+
+  element.contentEditable = "true";
+  element.focus();
+  element.addEventListener("focusout", () => {
+    console.log("focues");
+    element.contentEditable = "false";
+    let task = tasks.find((item) => item.id == id);
+    if (task !== undefined) {
+      const index = tasks.indexOf(task);
+      task.description = element.textContent!;
+      tasks[index] = task;
+      console.log(tasks);
+    }
+  });
 }
 
 resetTaskForm();

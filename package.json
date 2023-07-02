@@ -14,7 +14,7 @@
     "vite-plugin-pwa": "^0.15.1"
   },
   "dependencies": {
-    "@mdi/svg": "^7.2.96",
+    "@mdi/js": "^7.2.96",
     "lit": "^2.7.3"
   }
 }

@@ -6,8 +6,13 @@ import { html, render } from "lit";
 // delet tags
 // file to and file from functions
 
-const tasks: Task[] = [
-  { date: "10-03-03", tags: ["work", "play"], description: "This is a Task " },
+let tasks: Task[] = [
+  {
+    id: 1688321006071,
+    date: "10-03-03",
+    tags: ["work", "play"],
+    description: "This is a Task ",
+  },
 ];
 const tags: Tag[] = ["work", "play", "other"];
 const taskForm = document.querySelector("#task-form") as HTMLFormElement;
@@ -19,7 +24,7 @@ taskForm.addEventListener("submit", (event) => {
   const tags = data.getAll("tags") as Tag[];
   const description = data.get("description") as string;
 
-  tasks.unshift({ date, tags, description });
+  tasks.unshift({ id: Date.now(), date, tags, description });
 
   updateTasks();
 
@@ -42,6 +47,14 @@ function updateTasks() {
   const templates = tasks.map(
     (task) => html`
       <div>
+        <button
+          id="task-edit-${task.id}"
+          @click="${() => deleteTask(task.id)}"
+          class="task-delete"
+        >
+          X
+        </button>
+        <span hidden>${task.id}</span>
         <span>${task.date}</span>
         ${task.tags.map((tag) => html`<span class="tag">${tag}</span>`)}
         <span>${task.description}</span>
@@ -71,6 +84,10 @@ function resetTaskForm() {
   dateInput.valueAsDate = new Date();
 }
 
+function deleteTask(id: number) {
+  tasks = tasks.filter((item) => item.id != id);
+  updateTasks();
+}
 resetTaskForm();
 updateTasks();
 updateTags();

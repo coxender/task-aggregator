@@ -1,38 +1,77 @@
-:root{
+:root {
   color-scheme: dark light;
+  --secondary-color: rebeccapurple
 }
-.tag{
+body{
+  font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+button {
+  appearance: none;
+  border: none;
+  margin: 0;
+  padding: 0px;
+  border-radius: 4px;
+}
+.tag {
+
+  display: inline-block;
   margin: 8px;
-  padding: 2px;
-  background-color: #f44336;
+  padding: 6px 8px;
+  line-height: 24px;
+  background-color: var(--secondary-color);
   color: white;
-  border-radius:10%;
+  border-radius: 6px;
 }
 
-#tag-form .list{
-  display:grid;
-  row-gap:4px;
+#tag-form .list {
+  display: grid;
+  row-gap: 4px;
   column-gap: 16px;
-  grid-template-columns: auto auto auto ;
+  grid-template-columns: auto auto auto;
   grid-template-rows: auto auto auto auto;
-  grid-auto-flow:column;
+  grid-auto-flow: column;
 }
 
-#tasks-list{
-  display:grid;
-  row-gap:8px;
+#tasks-list {
+  display: grid;
+  row-gap: 8px;
   grid-template-columns: auto;
 }
-#tags-list > div{
+.task-description{
+  padding: 0 0 24px 24px;
+  margin: 0 0 24px 0
+}
+#tags-list > div {
   /* push to far right button in div, have text on rst */
-  background-color:grey;
-  border-radius:5px;
-  padding:2px 4px;
-  display:grid;
+  background-color: grey;
+  border-radius: 5px;
+  padding: 2px 4px;
+  display: grid;
   grid-template-columns: auto 24px;
 }
-#tags-list button{
+#tags-list button {
   text-align: center;
-  width:24px;
-  height:24px;
+  width: 24px;
+  height: 24px;
+}
+.task-edit {
+  padding: 4px 8px;
+  background-color: transparent;
+}
+.task-edit:hover, .task-edit:focus-visible{
+  background-color:var(--secondary-color);
+}
+  
+.task-delete {
+  font-size: 24px;
+  padding: 4px 8px;
+  background-color: transparent;
+}
+.task-delete:hover, .task-edit:focus-visible{
+  background-color:var(--secondary-color);
+}
+
+#tag-submission-error-text {
+  color:red
 }

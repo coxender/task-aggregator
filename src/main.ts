@@ -1,12 +1,11 @@
 import { Tag, Task } from "./types";
 import { html, render } from "lit";
-import { mdiPencil } from "@mdi/js";
+import { mdiTrashCan } from "@mdi/js";
 
 // prevent default submit
 // add new tags
 // delet tags
 // file to and file from functions
-
 let tasks: Task[] = [
   {
     id: 1688321006071,
@@ -40,9 +39,7 @@ tagForm.addEventListener("submit", (event) => {
   const data = new FormData(tagForm);
   const tag = data.get("tag") as Tag;
 
-  let errorText = document.querySelector(
-    "#tag-submission-error-text"
-  ) as HTMLElement;
+  let errorText = document.querySelector("#tag-submission-error-text") as HTMLElement;
   if (tags.includes(tag)) {
     errorText.innerHTML = "Cannot have duplicate tags!!";
   } else {
@@ -59,22 +56,18 @@ function updateTasks() {
   const templates = tasks.map(
     (task) => html`
       <div class="task">
-        <button class="task-edit" @click="${(event: Event) => editTask(event)}">
-          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-            <path fill="currentColor" d="${mdiPencil}" />
+        <button @click="${() => deleteTask(task.id)}" class="task-delete" data-task-id="">
+          <svg style="width: 24px; height: 24px;" viewBox="0 0 24 24">
+            <path fill="currentColor" d="${mdiTrashCan}" />
           </svg>
         </button>
-        <button
-          id="task-edit-${task.id}"
-          @click="${() => deleteTask(task.id)}"
-          class="task-delete"
-        >
-          X
-        </button>
-        <span class="task-id" hidden>${task.id}</span>
         <span>${task.date}</span>
         ${task.tags.map((tag) => html`<span class="tag">${tag}</span>`)}
-        <p class="task-description">${task.description}</p>
+        <textarea
+          class="task-description"
+          @change="${(event: Event) => (task.description = (event.target as HTMLTextAreaElement).value)}"
+          .value="${task.description}"
+        ></textarea>
       </div>
     `
   );
@@ -96,9 +89,7 @@ function updateTags() {
   render(optionsTemplate, tagsDropdown);
 }
 
-const dateInput = document.querySelector(
-  '#task-form [name="date"]'
-) as HTMLInputElement;
+const dateInput = document.querySelector('#task-form [name="date"]') as HTMLInputElement;
 
 function resetTaskForm() {
   taskForm.reset();
@@ -113,28 +104,6 @@ function deleteTask(id: number) {
 function deleteTag(tag: string) {
   tags = tags.filter((item) => item != tag);
   updateTags();
-}
-
-function editTask(event: Event) {
-  const parent = (event.target as HTMLElement).closest(".task") as HTMLElement;
-  let id = Number(
-    (parent.querySelector(".task-id") as HTMLElement).textContent
-  );
-  let element = parent.querySelector(".task-description") as HTMLElement;
-
-  element.contentEditable = "true";
-  element.focus();
-  element.addEventListener("focusout", () => {
-    console.log("focues");
-    element.contentEditable = "false";
-    let task = tasks.find((item) => item.id == id);
-    if (task !== undefined) {
-      const index = tasks.indexOf(task);
-      task.description = element.textContent!;
-      tasks[index] = task;
-      console.log(tasks);
-    }
-  });
 }
 
 resetTaskForm();

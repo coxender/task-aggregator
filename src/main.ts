@@ -8,8 +8,7 @@ import { mdiTrashCan } from "@mdi/js";
 // file to and file from functions
 let tasks: Task[] = [
   {
-    id: 1688321006071,
-    date: "10-03-03",
+    date: "2022-07-15",
     tags: ["work", "play"],
     description: "This is a Task ",
   },
@@ -24,7 +23,7 @@ taskForm.addEventListener("submit", (event) => {
   const tags = data.getAll("tags") as Tag[];
   const description = data.get("description") as string;
 
-  tasks.unshift({ id: Date.now(), date, tags, description });
+  tasks.unshift({ date, tags, description });
 
   updateTasks();
 
@@ -56,7 +55,7 @@ function updateTasks() {
   const templates = tasks.map(
     (task) => html`
       <div class="task">
-        <button @click="${() => deleteTask(task.id)}" class="task-delete" data-task-id="">
+        <button @click="${() => deleteTask(task)}" class="task-delete">
           <svg style="width: 24px; height: 24px;" viewBox="0 0 24 24">
             <path fill="currentColor" d="${mdiTrashCan}" />
           </svg>
@@ -96,8 +95,8 @@ function resetTaskForm() {
   dateInput.valueAsDate = new Date();
 }
 
-function deleteTask(id: number) {
-  tasks = tasks.filter((item) => item.id != id);
+function deleteTask(task: Task) {
+  tasks = tasks.filter((item) => task != item);
   updateTasks();
 }
 

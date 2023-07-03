@@ -23,20 +23,25 @@
           <option>add a tag</option>
         </select>
       </label>
-      <label>Description: <textarea name="description" placeholder="Describe the task..."></textarea></label>
+      <label>
+        Description:
+        <textarea
+          name="description"
+          placeholder="Describe the task..."
+        ></textarea>
+      </label>
       <button type="submit">Add task</button>
-      
     </form>
     <h2>Created Tags</h2>
     <form id="tag-form">
-      <div id="tags-list" class="list">
-      </div>
-      <input placeholder="New tag" name="tag" required/><button type="submit">Add Tag</button>
-      <p id="tag-submission-error-text" ></p>
+      <div id="tags-list" class="list"></div>
+      <input placeholder="New tag" name="tag" required /><button type="submit">
+        Add Tag
+      </button>
+      <p id="tag-submission-error-text"></p>
     </form>
     <h2>Past Tasks</h2>
-    <div id="tasks-list">
-    </div>
+    <div id="tasks-list"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

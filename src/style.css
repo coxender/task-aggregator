@@ -1,11 +1,13 @@
 :root {
   color-scheme: dark light;
-  --secondary-color: rebeccapurple
+  --secondary-color: rebeccapurple;
 }
-body{
+
+body {
   font-size: 24px;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 button {
   appearance: none;
   border: none;
@@ -14,7 +16,6 @@ button {
   border-radius: 4px;
 }
 .tag {
-
   display: inline-block;
   margin: 8px;
   padding: 6px 8px;
@@ -38,10 +39,12 @@ button {
   row-gap: 8px;
   grid-template-columns: auto;
 }
-.task-description{
+
+.task-description {
   padding: 0 0 24px 24px;
-  margin: 0 0 24px 0
+  margin: 0 0 24px 0;
 }
+
 #tags-list > div {
   /* push to far right button in div, have text on rst */
   background-color: grey;
@@ -50,28 +53,34 @@ button {
   display: grid;
   grid-template-columns: auto 24px;
 }
+
 #tags-list button {
   text-align: center;
   width: 24px;
   height: 24px;
 }
+
 .task-edit {
   padding: 4px 8px;
   background-color: transparent;
 }
-.task-edit:hover, .task-edit:focus-visible{
-  background-color:var(--secondary-color);
+
+.task-edit:hover,
+.task-edit:focus-visible {
+  background-color: var(--secondary-color);
 }
-  
+
 .task-delete {
   font-size: 24px;
   padding: 4px 8px;
   background-color: transparent;
 }
-.task-delete:hover, .task-edit:focus-visible{
-  background-color:var(--secondary-color);
+
+.task-delete:hover,
+.task-edit:focus-visible {
+  background-color: var(--secondary-color);
 }
 
 #tag-submission-error-text {
-  color:red
+  color: red;
 }

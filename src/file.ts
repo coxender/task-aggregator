@@ -1,14 +1,14 @@
-import { Tag } from "./types";
-
-/*
-Intent
-grab local file info to get the jsons
- */
-export function loadTasks() {
-  return [{ date: "", tags: [] as Tag[], description: "" }];
-
-  // get files
-  // read files
+if ("launchQueue" in window && "files" in LaunchParams.prototype) {
+  window.launchQueue.setConsumer((launchParams) => {
+    // Nothing to do when the queue is empty.
+    if (launchParams.files.length == 0) {
+      return;
+    }
+    openFile(launchParams.files[0]);
+  });
 }
 
-export function saveTasks() {}
+function openFile(fileHandle: FileSystemHandle) {
+  console.log(fileHandle);
+  // TODO
+}

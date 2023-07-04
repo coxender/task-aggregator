@@ -11,5 +11,13 @@
       "type": "image/png",
       "purpose": "any"
     }
+  ],
+  "file_handlers": [
+    {
+      "action": "/",
+      "accept": {
+        "application/vnd.excalidraw+json": [".excalidraw"]
+      }
+    }
   ]
 }

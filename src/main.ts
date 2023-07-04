@@ -1,10 +1,11 @@
 import { Tag, Task } from "./types";
 import { html, render } from "lit";
 import { mdiTrashCan } from "@mdi/js";
+import "./file";
 
 // prevent default submit
 // add new tags
-// delet tags
+// delete tags
 // file to and file from functions
 let tasks: Task[] = [
   {

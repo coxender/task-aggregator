@@ -14,10 +14,11 @@
   ],
   "file_handlers": [
     {
-      "action": "/",
+      "action": "/task-aggregator/",
       "accept": {
-        "application/vnd.excalidraw+json": [".excalidraw"]
-      }
+        "application/vnd.tagg+json": [".tagg"]
+      },
+      "launch-type": "multiple-clients"
     }
   ]
 }

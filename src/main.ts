@@ -7,14 +7,17 @@ import "./file";
 // add new tags
 // delete tags
 // file to and file from functions
-let tasks: Task[] = [
-  {
-    date: "2022-07-15",
-    tags: ["work", "play"],
-    description: "This is a Task ",
-  },
-];
-let tags: Tag[] = ["work", "play", "other"];
+
+let tasks: Task[] = [];
+let tags: Tag[] = [];
+
+export function setup(newTags: Tag[], newTasks: Task[]) {
+  tags = newTags;
+  tasks = newTasks;
+  updateTags();
+  updateTasks();
+}
+
 const taskForm = document.querySelector("#task-form") as HTMLFormElement;
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();

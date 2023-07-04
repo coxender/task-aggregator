@@ -7,6 +7,6 @@ interface LaunchQueue {
 }
 
 class LaunchParams {
-  readonly files: FileSystemHandle[];
+  readonly files: FileSystemFileHandle[];
   readonly targetURL: string;
 }

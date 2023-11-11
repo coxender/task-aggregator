@@ -24,10 +24,10 @@ taskForm.addEventListener("submit", (event) => {
 
   const data = new FormData(taskForm);
   const date = data.get("date") as string;
-  const tags = data.getAll("tags") as Tag[];
+  const tagNames = data.getAll("tagNames") as Tag["name"][];
   const description = data.get("description") as string;
 
-  tasks.unshift({ date, tags, description });
+  tasks.unshift({ date, tagNames, description });
 
   updateTasks();
 
@@ -40,15 +40,16 @@ tagForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const data = new FormData(tagForm);
-  const tag = data.get("tag") as Tag;
+  const name = data.get("name") as string;
+  const color = data.get("color") as string;
 
   let errorText = document.querySelector("#tag-submission-error-text") as HTMLElement;
-  if (tags.includes(tag)) {
+  if (tags.some((tag) => tag.name === name)) {
     errorText.innerHTML = "Cannot have duplicate tags!!";
   } else {
     errorText.innerHTML = "";
     tagForm.reset();
-    tags.push(tag);
+    tags.push({ name, color });
     updateTags();
   }
 });
@@ -56,6 +57,7 @@ tagForm.addEventListener("submit", (event) => {
 const tasksListElement = document.querySelector("#tasks-list") as HTMLElement;
 
 function updateTasks() {
+  let tagColors: { [name: string]: string } = Object.fromEntries(tags.map((tag) => [tag.name, tag.color]));
   const templates = tasks.map(
     (task) => html`
       <div class="task">
@@ -65,7 +67,9 @@ function updateTasks() {
           </svg>
         </button>
         <span>${task.date}</span>
-        ${task.tags.map((tag) => html`<span class="tag">${tag}</span>`)}
+        ${task.tagNames.map(
+          (tagName) => html`<span style="--tag-color: ${tagColors[tagName]}" class="tag">${tagName}</span>`
+        )}
         <textarea
           class="task-description"
           @change="${(event: Event) => (task.description = (event.target as HTMLTextAreaElement).value)}"
@@ -82,12 +86,12 @@ const tagsDropdown = document.querySelector("#tag-dropdown") as HTMLElement;
 function updateTags() {
   const tagTemplate = tags.map(
     (tag) =>
-      html`<div>
-        <span>${tag}</span>
-        <button type="button" @click="${() => deleteTag(tag)}">X</button>
+      html`<div style="--tag-color: ${tag.color}">
+        <span>${tag.name}</span>
+        <button type="button" @click="${() => deleteTag(tag.name)}">X</button>
       </div> `
   );
-  const optionsTemplate = tags.map((tag) => html`<option>${tag}</option>`);
+  const optionsTemplate = tags.map((tag) => html`<option>${tag.name}</option>`);
   render(tagTemplate, tagsListElement);
   render(optionsTemplate, tagsDropdown);
 }
@@ -104,8 +108,8 @@ function deleteTask(task: Task) {
   updateTasks();
 }
 
-function deleteTag(tag: string) {
-  tags = tags.filter((item) => item != tag);
+function deleteTag(name: string) {
+  tags = tags.filter((item) => item.name != name);
   updateTags();
 }
 

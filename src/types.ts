@@ -1,9 +1,12 @@
-export type Tag = string;
+export type Tag = {
+  name: string;
+  color: string;
+};
 
 export type Task = {
   // uid is just the unix timestamp
   date: string;
-  tags: Tag[];
+  tagNames: Tag["name"][];
   description: string;
 };
 

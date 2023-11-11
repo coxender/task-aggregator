@@ -20,7 +20,7 @@ button {
   margin: 8px;
   padding: 6px 8px;
   line-height: 24px;
-  background-color: var(--secondary-color);
+  background-color: var(--tag-color);
   color: white;
   border-radius: 6px;
 }
@@ -50,7 +50,7 @@ button {
 
 #tags-list > div {
   /* push to far right button in div, have text on rst */
-  background-color: grey;
+  background-color: var(--tag-color);
   border-radius: 5px;
   padding: 2px 4px;
   display: grid;

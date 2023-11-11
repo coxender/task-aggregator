@@ -17,11 +17,7 @@
       <label>Date: <input name="date" type="date" /></label>
       <label>
         Tags:
-        <select name="tags" id="tag-dropdown" size="5" multiple>
-          <option>tag1</option>
-          <option>tag2</option>
-          <option>add a tag</option>
-        </select>
+        <select name="tagNames" id="tag-dropdown" size="5" multiple></select>
       </label>
       <label>
         Description:
@@ -35,9 +31,9 @@
     <h2>Created Tags</h2>
     <form id="tag-form">
       <div id="tags-list" class="list"></div>
-      <input placeholder="New tag" name="tag" required /><button type="submit">
-        Add Tag
-      </button>
+      <input placeholder="New tag" name="name" required />
+      <input type="color" name="color" required />
+      <button type="submit">Add Tag</button>
       <p id="tag-submission-error-text"></p>
     </form>
     <h2>Past Tasks</h2>

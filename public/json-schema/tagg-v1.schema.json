@@ -9,7 +9,17 @@
       "description": "The list of current tags",
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the tag.",
+            "type": "string"
+          },
+          "color": {
+            "description": "An srgb hexadecimal color e.g. `#ff00ff`",
+            "type": "string"
+          }
+        }
       }
     },
     "tasks": {
@@ -22,8 +32,8 @@
             "description": "The date of the string.",
             "type": "string"
           },
-          "tags": {
-            "description": "The tags attached to a task.",
+          "tagNames": {
+            "description": "The names of the tags attached to a task.",
             "type": "array",
             "items": {
               "type": "string"

@@ -16,6 +16,10 @@
     <form id="task-form">
       <label>Date: <input name="date" type="date" /></label>
       <label>
+        Duration: <input value="0" name="hours" type="number" min="0" step="1" required /> :
+        <input value="0" name="minutes" type="number" min="0" max="59" step="1" required />
+      </label>
+      <label>
         Tags:
         <select name="tagNames" id="tag-dropdown" size="5" multiple></select>
       </label>

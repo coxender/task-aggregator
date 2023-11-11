@@ -32,6 +32,10 @@
             "description": "The date of the string.",
             "type": "string"
           },
+          "minutes": {
+            "description": "The duration of the task in minutes.",
+            "type": "integer"
+          },
           "tagNames": {
             "description": "The names of the tags attached to a task.",
             "type": "array",

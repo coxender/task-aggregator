@@ -24,10 +24,12 @@ taskForm.addEventListener("submit", (event) => {
 
   const data = new FormData(taskForm);
   const date = data.get("date") as string;
+  const hours = parseInt(data.get("hours") as string);
+  const minutes = parseInt(data.get("minutes") as string);
   const tagNames = data.getAll("tagNames") as Tag["name"][];
   const description = data.get("description") as string;
 
-  tasks.unshift({ date, tagNames, description });
+  tasks.unshift({ date, minutes: hours * 60 + minutes, tagNames, description });
 
   updateTasks();
 
@@ -56,6 +58,12 @@ tagForm.addEventListener("submit", (event) => {
 
 const tasksListElement = document.querySelector("#tasks-list") as HTMLElement;
 
+function displayDuration(totalMinutes: number): string {
+  const hour = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return `${hour}:${minutes < 10 ? "0" + minutes : minutes}`;
+}
+
 function updateTasks() {
   let tagColors: { [name: string]: string } = Object.fromEntries(tags.map((tag) => [tag.name, tag.color]));
   const templates = tasks.map(
@@ -67,6 +75,7 @@ function updateTasks() {
           </svg>
         </button>
         <span>${task.date}</span>
+        <span>${displayDuration(task.minutes)}</span>
         ${task.tagNames.map(
           (tagName) => html`<span style="--tag-color: ${tagColors[tagName]}" class="tag">${tagName}</span>`
         )}

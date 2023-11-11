@@ -6,6 +6,7 @@ export type Tag = {
 export type Task = {
   // uid is just the unix timestamp
   date: string;
+  minutes: number;
   tagNames: Tag["name"][];
   description: string;
 };

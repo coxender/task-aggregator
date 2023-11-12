@@ -29,7 +29,7 @@
         "type": "object",
         "properties": {
           "date": {
-            "description": "The date of the string.",
+            "description": "The date of the task. (YYYY-MM-DD)",
             "type": "string"
           },
           "minutes": {

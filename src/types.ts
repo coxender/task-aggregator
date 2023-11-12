@@ -6,7 +6,7 @@ export type Tag = {
 };
 
 export type Task = {
-  /** The date of the string. */
+  /** The date of the task. (YYYY-MM-DD) */
   date: string;
   /** The duration of the task in minutes. */
   minutes: number;

@@ -14,7 +14,7 @@
   ],
   "file_handlers": [
     {
-      "action": "/task-aggregator/",
+      "action": "/task-aggregator/?from-file",
       "accept": {
         "application/vnd.tagg+json": [".tagg"]
       },

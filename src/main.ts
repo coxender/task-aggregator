@@ -10,12 +10,15 @@ import "./file";
 
 let tasks: Task[] = [];
 let tags: Tag[] = [];
+let save: (tags: Tag[], tasks: Task[]) => void;
 
-export function setup(newTags: Tag[], newTasks: Task[]) {
+export function setup(newTags: Tag[], newTasks: Task[], newSave: (tags: Tag[], tasks: Task[]) => void) {
   tags = newTags;
   tasks = newTasks;
+  save = newSave;
   updateTags();
   updateTasks();
+  resetTaskForm();
 }
 
 const taskForm = document.querySelector("#task-form") as HTMLFormElement;
@@ -88,6 +91,7 @@ function updateTasks() {
     `
   );
   render(templates, tasksListElement);
+  save(tags, tasks);
 }
 
 const tagsListElement = document.querySelector("#tags-list") as HTMLElement;
@@ -103,6 +107,7 @@ function updateTags() {
   const optionsTemplate = tags.map((tag) => html`<option>${tag.name}</option>`);
   render(tagTemplate, tagsListElement);
   render(optionsTemplate, tagsDropdown);
+  save(tags, tasks);
 }
 
 const dateInput = document.querySelector('#task-form [name="date"]') as HTMLInputElement;
@@ -121,7 +126,3 @@ function deleteTag(name: string) {
   tags = tags.filter((item) => item.name != name);
   updateTags();
 }
-
-resetTaskForm();
-updateTasks();
-updateTags();

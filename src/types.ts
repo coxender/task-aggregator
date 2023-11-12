@@ -16,7 +16,7 @@ export type Task = {
   description: string;
 };
 
-const JSON_SCHEMA = "https://coxender.github.io/task-aggregator/json-schema/tagg-v1.schema.json";
+export const JSON_SCHEMA = "https://coxender.github.io/task-aggregator/json-schema/tagg-v1.schema.json";
 
 export type TaggFile = {
   $schema: typeof JSON_SCHEMA;

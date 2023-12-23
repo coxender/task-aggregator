@@ -86,6 +86,8 @@ function updateTasks() {
           class="task-description"
           @change="${(event: Event) => (task.description = (event.target as HTMLTextAreaElement).value)}"
           .value="${task.description}"
+          rows="5"
+          cols="80"
         ></textarea>
       </div>
     `

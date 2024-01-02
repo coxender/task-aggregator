@@ -87,3 +87,14 @@ button {
 #tag-submission-error-text {
   color: red;
 }
+
+#startup-dialog {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 12px;
+}
+#startup-dialog > h1 {
+  display: grid;
+  grid-column: span 2;
+}

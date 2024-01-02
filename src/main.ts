@@ -64,7 +64,7 @@ const tasksListElement = document.querySelector("#tasks-list") as HTMLElement;
 function displayDuration(totalMinutes: number): string {
   const hour = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
-  return `${hour}:${minutes < 10 ? "0" + minutes : minutes}`;
+  return `${hour} hr ${minutes < 10 ? "0" + minutes : minutes} min`;
 }
 
 function updateTasks() {

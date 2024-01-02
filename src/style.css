@@ -1,9 +1,12 @@
 :root {
   color-scheme: dark light;
-  --secondary-color: rebeccapurple;
+  --primary-color: #061a40;
+  --secondary-color: #0353a4;
+  --tertiary-color: #b9d6f2;
 }
 
 body {
+  margin:0;
   font-size: 24px;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -15,6 +18,23 @@ button {
   padding: 0px;
   border-radius: 4px;
 }
+.header {
+  background-color: var(--primary-color);
+}
+.header > h1 {
+  margin:inherit;
+  padding: 12px;
+}
+
+.main {
+  padding: 0 24px
+}
+
+.form-button {
+  padding: 4px 8px;
+  background-color: var(--secondary-color);
+}
+
 .tag {
   display: inline-block;
   margin: 8px;

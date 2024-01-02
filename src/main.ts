@@ -77,7 +77,7 @@ function updateTasks() {
             <path fill="currentColor" d="${mdiTrashCan}" />
           </svg>
         </button>
-        <span>${task.date}</span>
+        <span>${task.date} | </span>
         <span>${displayDuration(task.minutes)}</span>
         ${task.tagNames.map(
           (tagName) => html`<span style="--tag-color: ${tagColors[tagName]}" class="tag">${tagName}</span>`

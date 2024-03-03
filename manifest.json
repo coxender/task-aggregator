@@ -2,8 +2,8 @@
   "name": "Task Aggregator",
   "id": "task-aggregator",
   "display": "standalone",
-  "theme_color": "#160736",
-  "background_color": "#160736",
+  "theme_color": "#061a40",
+  "background_color": "#061a40",
   "icons": [
     {
       "src": "icons/any.svg",

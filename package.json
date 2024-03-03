@@ -9,13 +9,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@types/wicg-file-system-access": "^2023.10.3",
+    "@types/wicg-file-system-access": "^2023.10.4",
     "typescript": "^5.3.3",
-    "vite": "^5.0.10",
-    "vite-plugin-pwa": "^0.17.4"
+    "vite": "^5.1.4",
+    "vite-plugin-pwa": "^0.19.2"
   },
   "dependencies": {
-    "@mdi/js": "^7.3.67",
-    "lit": "^3.1.0"
+    "@mdi/js": "^7.4.47",
+    "lit": "^3.1.2"
   }
 }

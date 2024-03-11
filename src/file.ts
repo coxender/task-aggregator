@@ -3,17 +3,11 @@ import { TaggFile, isValidTaggFile, JSON_SCHEMA, Tag, Task } from "./types";
 
 const dialog = document.querySelector("#startup-dialog") as HTMLDialogElement;
 const openButton = dialog.querySelector("#open-button") as HTMLButtonElement;
-const createButton = dialog.querySelector(
-  "#create-button"
-) as HTMLButtonElement;
+const createButton = dialog.querySelector("#create-button") as HTMLButtonElement;
 
 const url = new URL(window.location.href);
 
-if (
-  url.searchParams.has("from-file") &&
-  "launchQueue" in window &&
-  "files" in LaunchParams.prototype
-) {
+if (url.searchParams.has("from-file") && "launchQueue" in window && "files" in LaunchParams.prototype) {
   url.searchParams.delete("from-file");
   history.replaceState(undefined, "", url);
 
@@ -32,9 +26,7 @@ if (!("showOpenFilePicker" in window) || !("showSaveFilePicker" in window)) {
   openButton.disabled = true;
   createButton.disabled = true;
   alert("File tools are not supporeted by current browser.");
-  throw new Error(
-    "Our file picker is not supported by your browser, get a better browser (chrome)"
-  );
+  throw new Error("Our file picker is not supported by your browser, get a better browser (chrome)");
 }
 
 openButton.addEventListener("click", async () => {
@@ -76,11 +68,7 @@ async function openFile(fileHandle: FileSystemFileHandle) {
   });
 }
 
-async function writeFile(
-  fileHandle: FileSystemFileHandle,
-  tags: Tag[],
-  tasks: Task[]
-) {
+async function writeFile(fileHandle: FileSystemFileHandle, tags: Tag[], tasks: Task[]) {
   let data: TaggFile = {
     $schema: JSON_SCHEMA,
     tags,

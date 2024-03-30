@@ -25,7 +25,7 @@ if (url.searchParams.has("from-file") && "launchQueue" in window && "files" in L
 if (!("showOpenFilePicker" in window) || !("showSaveFilePicker" in window)) {
   openButton.disabled = true;
   createButton.disabled = true;
-  alert("File tools are not supporeted by current browser.");
+  alert("File tools are not supported by current browser.");
   throw new Error("Our file picker is not supported by your browser, get a better browser (chrome)");
 }
 

@@ -1,6 +1,5 @@
-
 import { html, render } from "lit";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 /**
  * Creates a dialog, displays it to the user, waits for the user to press a button, deletes the dialog, and returns the button the pressed.
@@ -26,29 +25,40 @@ import {v4 as uuidv4} from 'uuid';
  * }
  */
 
-async function showDialog<T>(
+export async function showDialog<T>(
   title: string,
   body: unknown,
   buttons: { text: string; value: T }[]
 ): Promise<T | undefined> {
-  let buttons_info = map(buttons, (button)=>{
-    return {"id":"#${button.text}${uuid4()}}",
-            "text": button.text,
-            "value": button.value,
-        }
-  })
+  // get buttons in one data structure wiht an id to reference later.
+  // TODO: make this a type or class
+  let buttons_info = buttons.map((button) => {
+    let id = "#" + button.text + "-" + uuidv4();
+    return { id: id, text: button.text, value: button.value };
+  });
   return new Promise((resolve, reject) => {
-    let template = html`<dialog>
+    // create a dialog with a uuid to reference later to avoid collisions
+    let dialogID = "#dialog-" + uuidv4();
+    let template = html`<dialog id="${dialogID}" style="display:grid">
       <h1>${title}</h1>
       <div>${body}</div>
-      ${buttons_info.map((info) => html`<button id="${info.id}" value="${(info.value)}"> ${info.text} </button>`)}
+      ${buttons_info.map(
+        (info) => html`<button id="${info.id}" value=${JSON.stringify(info.value)}>${info.text}</button>`
+      )}
     </dialog>`;
-  render(template, document.body,);
-  
-  buttons_info.forEach(button => {
-    
-    button = document.getElementById(info.id)
-    return button.addEventListener("onclick", (event) => button.value)
-  });
-})
+    render(template, document.body);
 
+    // get dialog and open it
+    let dialog = document.getElementById(dialogID) as HTMLDialogElement;
+    console.log(dialog);
+    dialog.showModal();
+    buttons_info.forEach((info) => {
+      let buttonElement = document.getElementById(info.id) as HTMLButtonElement;
+      buttonElement.addEventListener("onclick", () => {
+        console.log("I was clicked");
+        dialog.close();
+        resolve(buttonElement.value as T);
+      });
+    });
+  });
+}

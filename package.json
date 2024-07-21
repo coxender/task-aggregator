@@ -11,7 +11,7 @@
   "devDependencies": {
     "@types/wicg-file-system-access": "^2023.10.4",
     "typescript": "^5.3.3",
-    "vite": "^5.1.4",
+    "vite": "^5.3.4",
     "vite-plugin-pwa": "^0.19.2"
   },
   "dependencies": {

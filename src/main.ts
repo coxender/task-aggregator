@@ -1,6 +1,6 @@
 import { Tag, Task } from "./types";
 import { html, render } from "lit";
-import { mdiTrashCan } from "@mdi/js";
+import { mdiTrashCan, mdiPencil } from "@mdi/js";
 import "./file";
 
 // prevent default submit
@@ -35,7 +35,7 @@ taskForm.addEventListener("submit", (event) => {
   tasks.unshift({ date, minutes: hours * 60 + minutes, tagNames, description });
 
   updateTasks();
-
+  clearWarnings();
   // clear tags and description in form
   resetTaskForm();
 });
@@ -62,8 +62,8 @@ tagForm.addEventListener("submit", (event) => {
 const tasksListElement = document.querySelector("#tasks-list") as HTMLElement;
 
 function displayDuration(totalMinutes: number): string {
-  const hour = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
+  const hour = getFormattedHours(totalMinutes);
+  const minutes = getFormattedMinutes(totalMinutes);
   return `${hour} hr ${minutes < 10 ? "0" + minutes : minutes} min`;
 }
 
@@ -77,23 +77,23 @@ function updateTasks() {
             <path fill="currentColor" d="${mdiTrashCan}" />
           </svg>
         </button>
+        <button @click="${() => editTask(task)}" class="task-edit">
+          <svg style="width: 24px; height: 24px;" viewBox="0 0 24 24">
+            <path fill="currentColor" d="${mdiPencil}" />
+          </svg>
+        </button>
         <span>${task.date} | </span>
         <span>${displayDuration(task.minutes)}</span>
         ${task.tagNames.map(
-          (tagName) => html`<span style="--tag-color: ${tagColors[tagName]}" class="tag">${tagName}</span>`
+          (tagName) => html`<span style="--tag-color: ${tagColors[tagName]}" class="tag">${tagName}</span>`,
         )}
-        <textarea
-          class="task-description"
-          @change="${(event: Event) => (task.description = (event.target as HTMLTextAreaElement).value)}"
-          .value="${task.description}"
-          rows="5"
-          cols="80"
-        ></textarea>
+        <div class="task-description">${task.description}</div>
       </div>
-    `
+    `,
   );
   render(templates, tasksListElement);
   save(tags, tasks);
+  updateDailyTime();
 }
 
 const tagsListElement = document.querySelector("#tags-list") as HTMLElement;
@@ -104,7 +104,7 @@ function updateTags() {
       html`<div style="--tag-color: ${tag.color}">
         <span>${tag.name}</span>
         <button type="button" @click="${() => deleteTag(tag.name)}">X</button>
-      </div> `
+      </div> `,
   );
   const optionsTemplate = tags.map((tag) => html`<option>${tag.name}</option>`);
   render(tagTemplate, tagsListElement);
@@ -113,6 +113,10 @@ function updateTags() {
 }
 
 const dateInput = document.querySelector('#task-form [name="date"]') as HTMLInputElement;
+const hourInput = document.querySelector('#task-form [name="hours"]') as HTMLInputElement;
+const minuteInput = document.querySelector('#task-form [name="minutes"]') as HTMLInputElement;
+const descriptionBox = document.querySelector('#task-form [name="description"]') as HTMLTextAreaElement;
+const formWarningBox = document.querySelector("#form-warnings") as HTMLDivElement;
 
 function resetTaskForm() {
   taskForm.reset();
@@ -124,7 +128,46 @@ function deleteTask(task: Task) {
   updateTasks();
 }
 
+function editTask(task: Task) {
+  tasks = tasks.filter((item) => task != item);
+
+  dateInput.value = task.date;
+  minuteInput.valueAsNumber = getFormattedMinutes(task.minutes);
+  hourInput.valueAsNumber = getFormattedHours(task.minutes);
+  descriptionBox.value = task.description;
+  descriptionBox.focus;
+  let warningText = html`<span class="warning">This task is unsaved. Submit to re-save this task.</span>`;
+  console.log(`${warningText}`);
+  render(warningText, formWarningBox);
+  updateTasks();
+}
+
 function deleteTag(name: string) {
   tags = tags.filter((item) => item.name != name);
   updateTags();
+}
+
+function updateDailyTime() {
+  const today: Date = new Date();
+  //const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${today.getDay()}`;
+  // get date in YYYY-MM-DD
+  let todayFormatted: string = today.toISOString().split("T")[0];
+  let todaysTasks = tasks.filter((task) => task.date == todayFormatted);
+  let todaysTime = todaysTasks.reduce((accumulator, currentValue) => accumulator + currentValue.minutes, 0);
+
+  const timeTracker = document.querySelector("#time-tracker") as HTMLDivElement;
+  const timeTemplate = html`<h3>Daily Time</h3>
+    <div>${displayDuration(todaysTime)}</div>`;
+  render(timeTemplate, timeTracker);
+}
+
+function getFormattedMinutes(totalMinutes: number) {
+  return totalMinutes % 60;
+}
+function getFormattedHours(totalMinutes: number) {
+  return Math.floor(totalMinutes / 60);
+}
+
+function clearWarnings() {
+  render(html``, formWarningBox);
 }

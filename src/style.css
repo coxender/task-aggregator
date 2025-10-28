@@ -28,11 +28,15 @@ button {
 
 .main {
   padding: 0 24px;
+  display: grid;
 }
 
 .form-button {
   padding: 4px 8px;
   background-color: var(--secondary-color);
+}
+.warning {
+  color: red;
 }
 
 .tag {
@@ -93,7 +97,8 @@ button {
   background-color: var(--secondary-color);
 }
 
-.task-delete {
+.task-delete,
+.task-edit {
   font-size: 24px;
   padding: 4px 8px;
   background-color: transparent;

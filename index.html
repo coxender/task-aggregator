@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,66 +14,51 @@
     <div class="header">
       <h1>Task Aggregator</h1>
     </div>
+
     <div class="main">
-      <h2>Add Tasks</h2>
-      <form id="task-form">
-        <label>Date: <input name="date" type="date" /></label>
-        <label>
-          Duration:
-          <input
-            value="0"
-            name="hours"
-            type="number"
-            min="0"
-            step="1"
-            required
-          />
-          :
-          <input
-            value="0"
-            name="minutes"
-            type="number"
-            min="0"
-            max="59"
-            step="1"
-            required
-          />
-        </label>
-        <label>
-          Tags:
-          <select name="tagNames" id="tag-dropdown" size="5" multiple></select>
-        </label>
-        <br />
-        <br />
-        <label>
-          Description:
+      <div class="content-side"><div id="time-tracker"></div></div>
+      <div class="content-main">
+        <h2>Add Tasks</h2>
+        <form id="task-form">
+          <label>Date: <input name="date" type="date" /></label>
+          <label>
+            Duration:
+            <input value="0" name="hours" type="number" min="0" step="1" required />
+            :
+            <input value="0" name="minutes" type="number" min="0" max="59" step="1" required />
+          </label>
+          <label>
+            Tags:
+            <select name="tagNames" id="tag-dropdown" size="5" multiple></select>
+          </label>
           <br />
-          <textarea
-            name="description"
-            placeholder="Describe the task..."
-            rows="5"
-            cols="80"
-          ></textarea>
-        </label>
-        <br>
-        <button class="form-button" type="submit">Add Task</button>
-      </form>
-      <h2>Created Tags</h2>
-      <form id="tag-form">
-        <div id="tags-list" class="list"></div>
-        <input placeholder="New tag" name="name" required />
-        <input type="color" name="color" required />
-        <button class="form-button" type="submit">Add Tag</button>
-        <p id="tag-submission-error-text"></p>
-      </form>
-      <h2>Past Tasks</h2>
-      <div id="tasks-list"></div>
-      <script type="module" src="/src/main.ts"></script>
-      <dialog id="startup-dialog">
-        <h1>Open File</h1>
-        <button class="form-button" id="open-button">Open File</button>
-        <button class="form-button" id="create-button">Create File</button>
-      </dialog>
+          <br />
+          <label>
+            Description:
+            <br />
+            <textarea name="description" placeholder="Describe the task..." rows="5" cols="80"></textarea>
+          </label>
+          <br />
+          <button class="form-button" type="submit">Add Task</button>
+        </form>
+        <div id="form-warnings"></div>
+        <h2>Created Tags</h2>
+        <form id="tag-form">
+          <div id="tags-list" class="list"></div>
+          <input placeholder="New tag" name="name" required />
+          <input type="color" name="color" required />
+          <button class="form-button" type="submit">Add Tag</button>
+          <p id="tag-submission-error-text"></p>
+        </form>
+        <h2>Past Tasks</h2>
+        <div id="tasks-list"></div>
+        <script type="module" src="/src/main.ts"></script>
+        <dialog id="startup-dialog">
+          <h1>Open File</h1>
+          <button class="form-button" id="open-button">Open File</button>
+          <button class="form-button" id="create-button">Create File</button>
+        </dialog>
+      </div>
     </div>
   </body>
 </html>

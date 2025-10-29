@@ -136,6 +136,7 @@ function editTask(task: Task) {
   hourInput.valueAsNumber = getFormattedHours(task.minutes);
   descriptionBox.value = task.description;
   descriptionBox.focus;
+  descriptionBox.scrollIntoView;
   let warningText = html`<span class="warning">This task is unsaved. Submit to re-save this task.</span>`;
   console.log(`${warningText}`);
   render(warningText, formWarningBox);

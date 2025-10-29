@@ -47,7 +47,10 @@ taskForm.addEventListener("submit", (event) => {
   const minutes = parseInt(data.get("minutes") as string);
   const tagNames = data.getAll("tagNames") as Tag["name"][];
   const description = data.get("description") as string;
-
+  // sort all but newest task
+  tasks.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
   tasks.unshift({ date, minutes: hours * 60 + minutes, tagNames, description });
 
   updateTasks();

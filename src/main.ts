@@ -12,6 +12,7 @@ let tasks: Task[] = [];
 let tags: Tag[] = [];
 let save: (tags: Tag[], tasks: Task[]) => void;
 let selectedDate: string = new Date().toISOString().slice(0, 10);
+const DAILY_TARGET_MINUTES = 7 * 60 + 30;
 
 const dateInput = document.querySelector('#task-form [name="date"]') as HTMLInputElement;
 const hourInput = document.querySelector('#task-form [name="hours"]') as HTMLInputElement;
@@ -175,12 +176,19 @@ function deleteTag(name: string) {
 function updateDailyTime(date: string) {
   let todaysTasks = tasks.filter((task) => task.date == date);
   let todaysTime = todaysTasks.reduce((accumulator, currentValue) => accumulator + currentValue.minutes, 0);
+  const progressPercent = Math.min((todaysTime / DAILY_TARGET_MINUTES) * 100, 100);
 
   const timeTracker = document.querySelector("#time-tracker") as HTMLDivElement;
-  const timeTemplate = html` <div>
-      <h4>${selectedDate}</h4>
+  const timeTemplate = html`
+    <div class="time-summary">
+      <h4>${date}</h4>
+      <div class="time-total">${displayDuration(todaysTime)}</div>
+      <div class="time-goal">Goal: ${displayDuration(DAILY_TARGET_MINUTES)}</div>
     </div>
-    <div>${displayDuration(todaysTime)}</div>`;
+    <div class="time-progress" aria-label="Daily progress toward 7 hours 30 minutes">
+      <div class="time-progress-fill" style="width: ${progressPercent}%"></div>
+    </div>
+  `;
   render(timeTemplate, timeTracker);
 }
 

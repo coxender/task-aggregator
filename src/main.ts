@@ -11,15 +11,7 @@ import "./file";
 let tasks: Task[] = [];
 let tags: Tag[] = [];
 let save: (tags: Tag[], tasks: Task[]) => void;
-
-export function setup(newTags: Tag[], newTasks: Task[], newSave: (tags: Tag[], tasks: Task[]) => void) {
-  tags = newTags;
-  tasks = newTasks;
-  save = newSave;
-  updateTags();
-  updateTasks();
-  resetTaskForm();
-}
+let selectedDate: string = new Date().toISOString().slice(0, 10);
 
 const dateInput = document.querySelector('#task-form [name="date"]') as HTMLInputElement;
 const hourInput = document.querySelector('#task-form [name="hours"]') as HTMLInputElement;
@@ -33,7 +25,29 @@ const tasksListElement = document.querySelector("#tasks-list") as HTMLElement;
 const tagForm = document.querySelector("#tag-form") as HTMLFormElement;
 const tagsListElement = document.querySelector("#tags-list") as HTMLElement;
 const tagsDropdown = document.querySelector("#tag-dropdown") as HTMLElement;
+const dateSelector = document.querySelector("#time-tracker-date-picker") as HTMLInputElement;
 
+export function setup(newTags: Tag[], newTasks: Task[], newSave: (tags: Tag[], tasks: Task[]) => void) {
+  tags = newTags;
+  tasks = newTasks;
+  save = newSave;
+
+  // set date inputs for first use
+  dateSelector.value = selectedDate;
+  dateInput.value = selectedDate;
+
+  updateTags();
+  updateTasks();
+  resetTaskForm();
+}
+
+//#endregion
+//#region INFO
+dateSelector.addEventListener("change", (event) => {
+  event.preventDefault();
+  selectedDate = new Date(dateSelector.value).toISOString().slice(0, 10);
+  updateDailyTime(selectedDate);
+});
 //#endregion
 //#region TASKS
 
@@ -54,6 +68,7 @@ taskForm.addEventListener("submit", (event) => {
   tasks.unshift({ date, minutes: hours * 60 + minutes, tagNames, description });
 
   updateTasks();
+  updateDailyTime(selectedDate);
   clearWarnings();
   // clear tags and description in form
   resetTaskForm();
@@ -85,12 +100,13 @@ function updateTasks() {
   );
   render(templates, tasksListElement);
   save(tags, tasks);
-  updateDailyTime();
+  updateDailyTime(selectedDate);
 }
 
 function resetTaskForm() {
+  const preservedDate = dateInput.value;
   taskForm.reset();
-  dateInput.valueAsDate = new Date();
+  dateInput.value = preservedDate;
 }
 
 function deleteTask(task: Task) {
@@ -156,15 +172,14 @@ function deleteTag(name: string) {
 //#endregion
 
 //#region TIME
-function updateDailyTime() {
-  const today: Date = new Date();
-  // get date in YYYY-MM-DD
-  let todayFormatted: string = today.toISOString().split("T")[0];
-  let todaysTasks = tasks.filter((task) => task.date == todayFormatted);
+function updateDailyTime(date: string) {
+  let todaysTasks = tasks.filter((task) => task.date == date);
   let todaysTime = todaysTasks.reduce((accumulator, currentValue) => accumulator + currentValue.minutes, 0);
 
   const timeTracker = document.querySelector("#time-tracker") as HTMLDivElement;
-  const timeTemplate = html`<h3>Daily Time</h3>
+  const timeTemplate = html` <div>
+      <h4>${selectedDate}</h4>
+    </div>
     <div>${displayDuration(todaysTime)}</div>`;
   render(timeTemplate, timeTracker);
 }
